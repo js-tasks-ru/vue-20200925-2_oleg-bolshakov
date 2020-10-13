@@ -1,17 +1,19 @@
 export const CounterButton = {
+
   name: 'CounterButton',
 
   // Шаблон потребуется отредактировать
   template: '<button type="button" @click="handleClick">{{ count }}</button>',
 
-  // Компонент должен иметь входной параметр
+  // Теперь текущее значение счётчика приходит от родителя через входной параметр
   props: {
     count: {
       type: Number,
       default: 0,
     }
   },
-  // Компонент должен иметь модель
+
+  // Описываем модель компонента на параметр count с событием increment
   model: {
     prop: 'count',
     event: 'increment',
