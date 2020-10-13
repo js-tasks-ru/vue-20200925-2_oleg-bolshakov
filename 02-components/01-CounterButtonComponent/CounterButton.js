@@ -1,10 +1,24 @@
 export const CounterButton = {
-  // Шаблон потребуется отредактировать
-  template: '<button type="button"></button>',
+  template: '<button type="button" @click="increment">{{ count }}</button>',
 
-  // Компонент должен иметь входной параметр
+  // Теперь текущее значение счётчика приходит от родителя через входной параметр
+  props: {
+    count: {
+      type: Number,
+      default: 0,
+    },
+  },
 
-  // Компонент должен иметь модель
+  // Описываем модель компонента на параметр count с событием increment
+  model: {
+    prop: 'count',
+    event: 'increment',
+  },
 
-  // Шаблон лучше держать максимально простым, а логику выносить в методы
+  methods: {
+    increment() {
+      // При клике на кнопку порождаем событие и отправляем новое значение
+      this.$emit('increment', this.count + 1);
+    },
+  },
 };
