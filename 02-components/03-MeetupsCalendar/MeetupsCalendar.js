@@ -20,8 +20,7 @@ export const MeetupsCalendar = {
         <div
           v-for="cell in cells"
           :key="cell.id"  
-          class="rangepicker__cell"
-          :class="{'rangepicker__cell_inactive': !cell.active}"
+          :class="['rangepicker__cell', {'rangepicker__cell_inactive': !cell.active}]"
         >
           {{ cell.day }}
           <a class="rangepicker__event"
@@ -49,14 +48,12 @@ export const MeetupsCalendar = {
 
   computed: {
     localDate() {
-      let localDate = new Date(this.date).toLocaleString(navigator.language, {
-        year: 'numeric',
+      return `${this.date.toLocaleDateString(navigator.language, {
         month: 'long',
-      });
-      return localDate.substring(0, localDate.length - 3); 
+      })} ${this.date.getFullYear()}`;
     },
     startFromSunday() {
-      return navigator.language === 'ru' ? false : true; // Это другие страны живут по библии, а у нас принято начинать неделю с понедельника.
+      return navigator.language !== 'ru' ? false : true; // Это другие страны живут по библии, а у нас принято начинать неделю с понедельника.
     },
     cells() {
       const dayOfWeek = this.getDayOfWeek(this.date, 1);
@@ -81,7 +78,7 @@ export const MeetupsCalendar = {
     changeMonth(next) {
       let month = this.date.getMonth();
       if ( next ) {month++;} else {month--;};
-      this.date = new Date(this.date.setMonth(month));
+      this.date = new Date(this.date.getFullYear(), month, 1);
     },
     getDaysInMonth(date) {
       return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -94,7 +91,7 @@ export const MeetupsCalendar = {
       return this.meetups.filter(meetup => {
         return new Date(meetup.date).setHours(0,0,0,0) === day;
       });
-    }
+    },
   },
 
 };

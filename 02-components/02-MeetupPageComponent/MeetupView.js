@@ -3,6 +3,7 @@ import { MeetupDescription } from './MeetupDescription.js';
 import { MeetupAgenda } from './MeetupAgenda.js';
 import { MeetupInfo } from './MeetupInfo.js';
 import { getMeetupCoverLink } from './data.js';
+import { meetup } from './__tests__/__fixtures__/meetup.js';
 
 export const MeetupView = {
   name: 'MeetupView',

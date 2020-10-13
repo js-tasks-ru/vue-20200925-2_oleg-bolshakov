@@ -21,7 +21,6 @@ export const MeetupAgendaItem = {
     </div>
   `,
 
-
   props: {
     agendaItem: {
       type: Object,

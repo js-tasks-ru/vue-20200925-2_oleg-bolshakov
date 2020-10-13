@@ -8,22 +8,20 @@ export const CounterButton = {
   props: {
     count: {
       type: Number,
-      default: function () {
-        return 0;
-      }
+      default: 0,
     }
   },
   // Компонент должен иметь модель
   model: {
-    props: 'count',
+    prop: 'count',
     event: 'increment',
   },
 
   // Шаблон лучше держать максимально простым, а логику выносить в методы
   methods: {
     handleClick() {
-      let value = this.count + 1;
-      this.$emit('increment', value);
+      this.$emit('increment', this.count + 1);
     }
-  }
+  },
+
 };
