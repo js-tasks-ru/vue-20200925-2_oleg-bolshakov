@@ -1,12 +1,20 @@
 <template>
   <div class="toasts">
-    <div class="toast toast_success">
-      <app-icon icon="check-circle" />
-      <span>Success</span>
-    </div>
-    <div class="toast toast_error">
-      <app-icon icon="alert-circle" />
-      <span>Error</span>
+    <div v-for="toast in toasts" :key="toast.id">
+      <div
+        v-if="toast.type==='success'"
+        class="toast toast_success"
+      >
+        <app-icon icon="check-circle" />
+        <span>{{ toast.message }}</span>
+      </div>
+      <div
+        v-if="toast.type==='error'"
+        class="toast toast_error"
+      >
+        <app-icon icon="alert-circle" />
+        <span>{{ toast.message }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -18,13 +26,36 @@ const DELAY = 5000;
 
 export default {
   name: 'AppToast',
+  data: function() {
+    return {
+      toasts: [],
+      id: 0,
+    }
+  },
 
   components: { AppIcon },
 
   methods: {
-    error(message) {},
+    error(message) {
+      this.addToast(message, 'error');
+    },
 
-    success(message) {},
+    success(message) {
+      this.addToast(message, 'success');
+    },
+
+    addToast(message, type) {
+      this.toasts.push({
+        id: ++this.id,
+        type: type,
+        message: message,
+      });
+      setTimeout(this.deleteToast, DELAY, this.id);
+    },
+
+    deleteToast(id) {
+      this.toasts = this.toasts.filter(toast => {return toast.id !== id});
+    }
   },
 };
 </script>
@@ -53,6 +84,7 @@ export default {
   font-size: 18px;
   line-height: 28px;
   width: auto;
+  margin: 8px;
 }
 
 .toast + .toast {
