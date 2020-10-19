@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 
 export const router = new VueRouter({
   mode: 'history',
-  base: '/4-module-6-task',
+  base: '/04-SPA/06-Query',
   routes: [
     {
       path: '/',
