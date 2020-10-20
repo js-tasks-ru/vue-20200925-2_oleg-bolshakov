@@ -1,7 +1,7 @@
 <template>
   <div class="page page_meetup-forms">
     <div class="container">
-      <h2 class="page__title">Создать митап</h2>
+      <h2 class="page__title">{{ title }}</h2>
       <slot></slot>
     </div>
   </div>
@@ -10,6 +10,12 @@
 <script>
 export default {
   name: 'FormLayout',
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>
 
