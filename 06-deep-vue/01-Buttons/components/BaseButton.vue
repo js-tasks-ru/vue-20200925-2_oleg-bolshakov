@@ -1,10 +1,28 @@
 <template>
-  <button class="button"></button>
+  <component
+    :is="tag"
+    v-bind="$attrs"
+    v-on="$listeners"
+    :class="['button', { 'button_block': block }]"><slot></slot>
+  </component>
 </template>
 
 <script>
 export default {
   name: 'BaseButton',
+  inheritAttrs: false,
+  props: {
+    block: {
+      type: Boolean,
+    },
+    tag: {
+      type: String,
+      default: 'button',
+      validator: function (value) {
+        return ['button', 'a', 'router-link'].indexOf(value) !== -1;
+      },
+    },
+  },
 };
 </script>
 
