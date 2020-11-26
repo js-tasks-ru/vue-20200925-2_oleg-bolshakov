@@ -1,8 +1,8 @@
 <template>
   <base-button
     class="button_primary"
-    :block="block"
-    :tag="tag"
+    :block="$attrs.block"
+    :tag="$attrs.tag"
     v-bind="$attrs"
     v-on="$listeners"><slot></slot></base-button>
 </template>
@@ -13,7 +13,6 @@ export default {
   name: 'PrimaryButton',
   inheritAttrs: false,
   components: { BaseButton },
-  props: ['block', 'tag'],
 };
 </script>
 

@@ -3,7 +3,8 @@
     :is="tag"
     v-bind="$attrs"
     v-on="$listeners"
-    :class="['button', { 'button_block': block }]"><slot></slot>
+    class="button"
+    :class="{ 'button_block': block }"><slot></slot>
   </component>
 </template>
 
