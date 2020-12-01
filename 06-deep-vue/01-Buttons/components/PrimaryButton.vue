@@ -1,8 +1,6 @@
 <template>
   <base-button
     class="button_primary"
-    :block="$attrs.block"
-    :tag="$attrs.tag"
     v-bind="$attrs"
     v-on="$listeners"><slot></slot></base-button>
 </template>
