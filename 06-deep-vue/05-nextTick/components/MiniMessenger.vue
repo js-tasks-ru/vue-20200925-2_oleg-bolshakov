@@ -1,6 +1,6 @@
 <template>
   <main>
-    <messages-list class="messages" :messages="messages" />
+    <messages-list class="messages" :messages="messages" ref="messagesContainer"/>
     <form @submit.prevent="send" style="display: flex;">
       <input type="text" placeholder="New message" v-model="newMessage" />
       <button>Send</button>
@@ -37,8 +37,19 @@ export default {
         text: this.newMessage,
       });
       this.newMessage = '';
+      this.$nextTick(() => this.scrollToEnd());
+    },
+    scrollToEnd: function () {
+      var content = this.$refs.messagesContainer.$el;
+      content.scrollTop = content.scrollHeight;
     },
   },
+  /*
+  // Вариант решения без nextTick
+  updated() {
+    this.scrollToEnd();
+  },
+  */
 };
 </script>
 
