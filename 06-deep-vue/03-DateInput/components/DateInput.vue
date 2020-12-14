@@ -18,7 +18,8 @@ import AppInput from './AppInput';
 
 export default {
   name: 'DateInput',
-
+  inheritAttrs: false,
+  
   components: { AppInput },
 
   props: {

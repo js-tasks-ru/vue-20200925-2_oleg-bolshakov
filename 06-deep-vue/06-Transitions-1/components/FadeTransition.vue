@@ -1,8 +1,13 @@
-<template></template>
+<template>
+  <transition name="fade" mode="out-in" v-bind="$attrs" v-on="$listeners">
+    <slot />
+  </transition>
+</template>
 
 <script>
 export default {
   name: 'FadeTransition',
+  inheritAttrs: false,
 };
 </script>
 
@@ -11,7 +16,6 @@ export default {
 .fade-leave-active {
   transition: opacity 0.2s ease-in-out;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
