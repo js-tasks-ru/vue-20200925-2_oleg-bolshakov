@@ -1,6 +1,21 @@
 <script>
 export default {
   name: 'FadeTransitionGroup',
+  inheritAttrs: false,
+  render(h) {
+    let nodes = (Array.isArray(this.$slots.default)) ? this.$slots.default.map(vnode => {
+      if ( !vnode.data.class ) vnode.data.class = {};
+      vnode.data.class["fade-list-item"] = true;
+      return vnode;
+    }) : [];
+    return h('transition-group', {
+      attrs: { ...this.$attrs, name: "fade-list" },
+      listeners: this.$listeners,
+      class: {
+        'fade-list': true,
+      },
+    }, nodes);
+  }
 };
 </script>
 
