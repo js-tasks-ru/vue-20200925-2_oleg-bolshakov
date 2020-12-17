@@ -1,8 +1,8 @@
 <template>
   <AppInput
     :type="type"
-    v-model="date"
-    ref="theDateInput"
+    :value="date"
+    @input.native="event => updateValues(event)"
     v-bind="$attrs"
     v-on="$listeners"
   >
@@ -42,23 +42,14 @@ export default {
     }
   },
 
-  data(){
-    return {
-      input: null,
-      step: null,
-    };
-  },
-
   computed: {
-    date: {
-      get: function() {
-        if (this.valueAsNumber) return this.format(this.valueAsNumber);
-        if (this.valueAsDate) return this.format(this.valueAsDate);
-        return this.value;
-      },
-      set: function(newValue) {
-        this.updateValues(newValue);
-      }
+    date() {
+      if (this.valueAsNumber) return this.format(this.valueAsNumber);
+      if (this.valueAsDate) return this.format(this.valueAsDate);
+      return this.value;
+    },
+    step() {
+      return this.$attrs.step;
     }
   },
 
@@ -74,20 +65,14 @@ export default {
           return new Date(date).toISOString().substr(0, 10);
       }
     },
-    updateValues(newValue) {  
-      // По условию задачи 'newValue' нельзя использовать.
-      // Нашел такой способ добраться до 'valueAsNumber' и 'valueAsDate'.
-      let valueAsNumber = this.input.$el.children[0].valueAsNumber;
-      let valueAsDate = this.input.$el.children[0].valueAsDate;
+    updateValues(event) {  
+      let valueAsNumber = event.target.valueAsNumber;
+      let valueAsDate = event.target.valueAsDate;
       if ( !valueAsDate ) valueAsDate = new Date(valueAsNumber);
       this.$emit('update:valueAsNumber', valueAsNumber);
       this.$emit('update:valueAsDate', valueAsDate);
     },
   },
-  mounted() {
-    this.input = this.$refs.theDateInput;
-    this.step = this.input.$attrs.step;
-  }
 };
 </script>
 

@@ -44,12 +44,6 @@ export default {
       content.scrollTop = content.scrollHeight;
     },
   },
-  /*
-  // Вариант решения без nextTick
-  updated() {
-    this.scrollToEnd();
-  },
-  */
 };
 </script>
 
