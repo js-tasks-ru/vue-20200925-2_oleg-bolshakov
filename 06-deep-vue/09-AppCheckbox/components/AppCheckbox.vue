@@ -30,8 +30,9 @@ export default {
       },
     },
     listeners() {
-      delete this.$listeners.change;
-      return this.$listeners;
+      let l = { ...this.$listeners };
+      delete l.change;
+      return l;
     }
   },
   model: {
