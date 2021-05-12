@@ -21,9 +21,7 @@
           :class="['rangepicker__cell', {'rangepicker__cell_inactive': !cell.active}]"
         >
           {{ cell.day }}
-          <template v-for="meetup in cell.meetups">
-            <slot name="default" :meetup="meetup"></slot>
-          </template>
+          <slot name="default" :date="cell.date"></slot>
         </div>
       </div>
     </div>
@@ -37,14 +35,6 @@ export default {
     return {
       date: new Date(),
       offset: 2,
-    }
-  },
-  props: {
-    meetups: {
-      type: Array,
-      default: function() {
-        return [];
-      }
     }
   },
   computed: {
@@ -69,7 +59,7 @@ export default {
           id: i+1,
           day: new Date(date).getDate(),
           active: new Date(this.date).getMonth() === new Date(date).getMonth(),
-          meetups: this.getMeetupsByDate(date),
+          date: date
         };
       });
     }
@@ -85,12 +75,6 @@ export default {
     },
     getDayOfWeek (date, day) {
       return new Date(date.getFullYear(), date.getMonth(), day).getDay();
-    },
-    getMeetupsByDate(date) {
-      let day = new Date(date).setHours(0,0,0,0);
-      return this.meetups.filter(meetup => {
-        return new Date(meetup.date).setHours(0,0,0,0) === day;
-      });
     },
   },
 };
