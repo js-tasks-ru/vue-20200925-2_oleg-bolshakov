@@ -1,27 +1,32 @@
 <template>
-  <renderless-calendar class="rangepicker">
-    <div class="rangepicker__calendar">
-      <div class="rangepicker__month-indicator">
-        <div class="rangepicker__selector-controls">
-          <button class="rangepicker__selector-control-left"></button>
-          <div>Январь 2021</div>
-          <button class="rangepicker__selector-control-right"></button>
+  <renderless-calendar :month="month" class="rangepicker">
+    <template #default="{ methods, localDate, cells }">
+      <div class="rangepicker__calendar">
+        <div class="rangepicker__month-indicator">
+          <div class="rangepicker__selector-controls">
+            <button
+              class="rangepicker__selector-control-left"
+              @click="methods.changeMonth(false)"
+            ></button>
+            <div>{{ localDate }}</div>
+            <button
+              class="rangepicker__selector-control-right"
+              @click="methods.changeMonth(true)"
+            ></button>
+          </div>
+        </div>
+        <div class="rangepicker__date-grid">
+          <div
+            v-for="cell in cells"
+            :key="cell.id"  
+            :class="['rangepicker__cell', {'rangepicker__cell_inactive': !cell.active}]"
+          >
+            {{ cell.day }}
+            <slot name="default" :date="cell.date"></slot>
+          </div>
         </div>
       </div>
-      <div class="rangepicker__date-grid">
-        <div class="rangepicker__cell rangepicker__cell_inactive">28</div>
-        <div class="rangepicker__cell rangepicker__cell_inactive">29</div>
-        <div class="rangepicker__cell rangepicker__cell_inactive">30</div>
-        <div class="rangepicker__cell rangepicker__cell_inactive">31</div>
-        <div class="rangepicker__cell">
-          1
-          <a class="rangepicker__event">Митап</a>
-          <a class="rangepicker__event">Митап</a>
-        </div>
-        <div class="rangepicker__cell">2</div>
-        <div class="rangepicker__cell">3</div>
-      </div>
-    </div>
+    </template>
   </renderless-calendar>
 </template>
 
@@ -32,6 +37,20 @@ export default {
   name: 'CalendarView',
 
   components: { RenderlessCalendar },
+
+  props: {
+    month: {
+      type: Number,
+      required: false,
+      default: function() {
+        return new Date().getMonth();
+      },
+      validator: function(value) {
+        return value >= 0 && value <= 11;
+      },
+    }
+  }
+  
 };
 </script>
 
